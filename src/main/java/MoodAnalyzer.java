@@ -1,21 +1,20 @@
-import java.util.Scanner;
-
 public class MoodAnalyzer {
-    public static void main(String[] args) {
-        System.out.println("Welcome to mood analyzer");
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Enter your mood");
-        String mood=sc.nextLine();
-        sc.close();
-        System.out.println(moodAnalyse(mood));
+    private String message;
+
+    public MoodAnalyzer() {
+
     }
-    public static String moodAnalyse(String message) {
+    public MoodAnalyzer(String message) {
+        this.message = message;
+    }
+    public String analyseMood() {
         if (message.length() == 0) {
             System.out.println("Enter mood");
         }
         if (message.contains("sad"))
-            return "SAD";
-        else
-            return "HAPPY";
+            message = "SAD";
+        else if (message.contains("happy"))
+            message = "HAPPY";
+        return message;
     }
 }
