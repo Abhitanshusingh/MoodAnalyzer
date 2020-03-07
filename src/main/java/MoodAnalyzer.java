@@ -4,17 +4,24 @@ public class MoodAnalyzer {
     public MoodAnalyzer() {
 
     }
+
     public MoodAnalyzer(String message) {
         this.message = message;
     }
+
     public String analyseMood() {
-        if (message.length() == 0) {
-            System.out.println("Enter mood");
+        try {
+            if (message.length() == 0)
+                System.out.println("Enter mood");
+            if (message.contains("sad"))
+                message = "SAD";
+            else
+                message = "HAPPY";
+            return message;
         }
-        if (message.contains("sad"))
-            message = "SAD";
-        else if (message.contains("happy"))
-            message = "HAPPY";
+        catch(NullPointerException e){
+            message="HAPPY";
+        }
         return message;
     }
 }
