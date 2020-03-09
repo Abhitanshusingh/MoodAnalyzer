@@ -5,20 +5,25 @@ public class TestMoodAnalyzer {
     MoodAnalyzer analyzer;
 
     @Test
-    public void moodAnalyzerclass_WhenMessageIncludeSad_ShouldReturnSad() {
+    public void moodAnalyzerclass_WhenMessageIncludeSad_ShouldReturnSad() throws MoodAnalysisException {
         analyzer = new MoodAnalyzer("I am in sad mood");
         Assert.assertEquals("SAD", analyzer.analyseMood());
     }
 
     @Test
-    public void moodAnalyzerclass_WhenMessageIncludeHappy_ShouldReturnHappy() {
+    public void moodAnalyzerclass_WhenMessageIncludeHappy_ShouldReturnHappy() throws MoodAnalysisException {
         analyzer = new MoodAnalyzer("I am in happy mood");
         Assert.assertEquals("HAPPY", analyzer.analyseMood());
     }
 
     @Test
-    public void moodAnalyzerclass_WhenMessageIncludeNull_ShouldReturnHappy() {
+    public void moodAnalyzerclass_WhenMessageIncludeNull_ShouldThrowException(){
         analyzer = new MoodAnalyzer(null);
-        Assert.assertEquals("HAPPY", analyzer.analyseMood());
+        try {
+            analyzer.analyseMood();
+        }
+        catch (MoodAnalysisException e){
+            Assert.assertEquals("Please enter proper mood",e.getMessage());
+        }
     }
 }
