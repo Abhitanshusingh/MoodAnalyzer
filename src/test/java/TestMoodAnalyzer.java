@@ -26,4 +26,15 @@ public class TestMoodAnalyzer {
             Assert.assertEquals("Please enter proper mood",e.getMessage());
         }
     }
+
+    @Test
+    public void moodAnalyzerclass_WhenMessageIncludeEmpty_ShouldThrowException(){
+        analyzer = new MoodAnalyzer("");
+        try {
+            analyzer.analyseMood();
+        }
+        catch (MoodAnalysisException e){
+            Assert.assertEquals("Please enter proper mood",e.getMessage());
+        }
+    }
 }
