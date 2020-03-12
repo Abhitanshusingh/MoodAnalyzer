@@ -1,7 +1,8 @@
 public class MoodAnalysisException extends Exception {
     enum ExceptionType {
-        ENTERED_NULL, ENTERED_EMPTY;
+        ENTERED_NULL, ENTERED_EMPTY,NO_SUCH_CLASS;
     }
+
     ExceptionType type;
 
     public MoodAnalysisException(ExceptionType type, String message) {
