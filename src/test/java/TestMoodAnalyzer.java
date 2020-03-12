@@ -39,10 +39,20 @@ public class TestMoodAnalyzer {
     }
 
     @Test
-    public void moodAnalyzer_WhenProper_ShouldReturnObject() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        analyzer=new MoodAnalyzer();
-        MoodAnalyzer moodAnalyzerObject=MoodAnalyzerFactory.createMoodAnalyserObject();
-        boolean result =analyzer.equals(moodAnalyzerObject);
-        Assert.assertEquals(true,result);
+    public void givenMoodAnalyzer_WhenProper_ShouldReturnObject() throws MoodAnalysisException {
+        analyzer = new MoodAnalyzer();
+        MoodAnalyzer moodAnalyzerObject = MoodAnalyzerFactory.createMoodAnalyserObject();
+        boolean result = analyzer.equals(moodAnalyzerObject);
+        Assert.assertEquals(true, result);
+    }
+
+    @Test
+    public void givenClassName_WhenImproper_ShouldThrowMoodAnalysisException() {
+        analyzer = new MoodAnalyzer();
+        try {
+            MoodAnalyzer moodAnalyzerObject = MoodAnalyzerFactory.createMoodAnalyserObject();
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
+        }
     }
 }
