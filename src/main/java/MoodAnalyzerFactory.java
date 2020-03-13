@@ -37,7 +37,7 @@ public class MoodAnalyzerFactory {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
-            throw new MoodAnalysisException(e, MoodAnalysisException.ExceptionType.);
+            throw new MoodAnalysisException(e, MoodAnalysisException.ExceptionType.NO_SUCH_METHOD);
         }
         return null;
     }
