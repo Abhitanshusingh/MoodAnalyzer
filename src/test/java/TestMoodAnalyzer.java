@@ -1,5 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.lang.reflect.Constructor;
 
 public class TestMoodAnalyzer {
@@ -66,15 +67,27 @@ public class TestMoodAnalyzer {
         }
     }
 
+    //PARAMETERIZED CONSTRUCTOR
     @Test
     public void givenMoodAnalyzerClass_WhenProper_ShouldReturnObject() {
         try {
             analyzer = new MoodAnalyzer("Happy");
-            Constructor<?> constructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer",String.class);
-            Object moodObject =  MoodAnalyzerFactory.createMoodAnalyserObject(constructor,"Happy");
+            Constructor<?> moodAnalyzerObject = MoodAnalyzerFactory.getConstructor("MoodAnalyzer", String.class);
+            Object moodObject = MoodAnalyzerFactory.createMoodAnalyserObject(moodAnalyzerObject, "Happy");
             boolean equal = analyzer.equals(moodObject);
             Assert.assertTrue(equal);
         } catch (MoodAnalysisException e) {
+        }
+    }
+
+    //PARAMETERIZED CONSTRUCTOR
+    @Test
+    public void givenClassName_WhenImproper_ShouldThrowMoodAnalysisException2() {
+        analyzer = new MoodAnalyzer("Happy");
+        try {
+            Constructor<?> moodAnalyzerObject = MoodAnalyzerFactory.getConstructor("MoodyAnalyzer");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
         }
     }
 }
