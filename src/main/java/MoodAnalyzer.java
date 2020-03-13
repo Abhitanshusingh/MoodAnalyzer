@@ -18,7 +18,7 @@ public class MoodAnalyzer {
                 throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_EMPTY, "Please enter proper mood");
             if (message.contains("sad"))
                 message = "SAD";
-            else
+            else if (message.contains("happy"))
                 message = "HAPPY";
             return message;
         } catch (NullPointerException e) {
