@@ -83,11 +83,20 @@ public class TestMoodAnalyzer {
     //PARAMETERIZED CONSTRUCTOR
     @Test
     public void givenClassName_WhenImproper_ShouldThrowMoodAnalysisException2() {
-        analyzer = new MoodAnalyzer("Happy");
         try {
-            Constructor<?> moodAnalyzerObject = MoodAnalyzerFactory.getConstructor("MoodyAnalyzer");
+            Constructor<?> moodAnalyzerObject = MoodAnalyzerFactory.getConstructor("MoodyAnalyzer",String.class);
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
+        }
+    }
+
+    //PARAMETERIZED CONSTRUCTOR
+    @Test
+    public void givenClass_WhenConstructorNotProper_ShouldThrowMoodAnalysisException2() {
+        try {
+            Constructor<?> moodAnalyzerObject = MoodAnalyzerFactory.getConstructor("MoodAnalyzer", Integer.class);
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
         }
     }
 }
