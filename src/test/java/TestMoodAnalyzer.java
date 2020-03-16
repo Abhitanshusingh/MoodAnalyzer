@@ -116,10 +116,23 @@ public class TestMoodAnalyzer {
     public void givenHappyMessage_WhenImproper_ShouldThrowMoodAnalysisException() {
         try {
             Constructor<?> constructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer", String.class);
-            Object moodObject = MoodAnalyzerFactory.createMoodAnalyserObject(constructor,"happy");
-            Object mood = MoodAnalyzerFactory.invokeMethod(moodObject,"analyseMoodi");
+            Object moodObject = MoodAnalyzerFactory.createMoodAnalyserObject(constructor, "happy");
+            Object mood = MoodAnalyzerFactory.invokeMethod(moodObject, "analyseMoodi");
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
+        }
+    }
+
+    @Test
+    public void givenHappyMessage_WithReflector_ShouldReturnHappy() {
+        try {
+            Constructor<?> constructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer", String.class);
+            Object moodObject = MoodAnalyzerFactory.createMoodAnalyserObject(constructor, "happy");
+            MoodAnalyzerFactory.SetFieldValue(moodObject, "message", "I am in happy mood");
+            Object mood = MoodAnalyzerFactory.invokeMethod(moodObject, "analyseMood");
+            Assert.assertEquals("HAPPY", mood);
+        } catch (MoodAnalysisException e) {
+            e.printStackTrace();
         }
     }
 }
