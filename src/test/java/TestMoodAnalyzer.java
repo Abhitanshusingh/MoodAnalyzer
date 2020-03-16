@@ -128,21 +128,34 @@ public class TestMoodAnalyzer {
         try {
             Constructor<?> constructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer", String.class);
             Object moodObject = MoodAnalyzerFactory.createMoodAnalyserObject(constructor, "happy");
-            MoodAnalyzerFactory.SetFieldValue(moodObject, "message", "I am in happy mood");
+            MoodAnalyzerFactory.setFieldValue(moodObject, "message", "I am in happy mood");
             Object mood = MoodAnalyzerFactory.invokeMethod(moodObject, "analyseMood");
             Assert.assertEquals("HAPPY", mood);
         } catch (MoodAnalysisException e) {
             e.printStackTrace();
         }
     }
+
     @Test
-    public void givenHappyMessage_InField_WhenImproper_ShouldReturnHappy() {
+    public void givenHappyMessage_InFieldWhenImproper_ShouldReturnHappy() {
         try {
             Constructor<?> constructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer");
             Object moodObject = MoodAnalyzerFactory.createMoodAnalyserObject(constructor);
-            MoodAnalyzerFactory.SetFieldValue(moodObject, "mesage", "I am in happy mood");
+            MoodAnalyzerFactory.setFieldValue(moodObject, "mesage", "I am in happy mood");
         } catch (MoodAnalysisException e) {
-            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_FIELD,e.type);
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_FIELD, e.type);
+        }
+    }
+
+    @Test
+    public void SettingNullMessage_WithReflector_ShouldThrowException() {
+        try {
+            Constructor<?> constructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer");
+            Object moodObject = MoodAnalyzerFactory.createMoodAnalyserObject(constructor);
+            MoodAnalyzerFactory.setFieldValue(moodObject, "message", null);
+            MoodAnalyzerFactory.invokeMethod(moodObject, "analyseMood");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.METHOD_INVOCATION_ISSUE, e.type);
         }
     }
 }
